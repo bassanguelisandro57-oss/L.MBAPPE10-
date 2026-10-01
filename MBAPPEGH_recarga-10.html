@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBAPPEGH - Recarga Free Fire</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#080d16;color:#fff;font-family:Arial,sans-serif}
+header{padding:18px 20px;background:#0d1420;border-bottom:1px solid #28344a;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:21px;margin:0}.back{color:#aeb8c8}.cart{font-size:24px}
+.hero{margin:0 16px;padding:30px 22px;background:linear-gradient(180deg,#182b43,#101927);border:1px solid #58317f;border-radius:0 0 22px 22px}
+.hero h2{font-size:28px;margin:0 0 10px}.hero strong{color:#ffb000}.hero p{color:#aeb8c8;line-height:1.5}
+.card{margin:20px 16px;padding:21px;background:#101927;border:1px solid #263247;border-radius:22px}
+h3{margin:0 0 18px;font-size:20px}label{display:block;color:#aeb8c8;margin:15px 0 8px;font-weight:bold}
+input{width:100%;padding:16px;border-radius:14px;border:1px solid #29364c;background:#070c14;color:#fff;font-size:16px}
+.packages{display:grid;grid-template-columns:1fr 1fr;gap:12px}.package{padding:18px;border:2px solid #263247;border-radius:17px;background:#101927;cursor:pointer}
+.package.selected,.package:hover{border-color:#ff7200;box-shadow:0 0 14px #ff720044}
+.diam{font-size:19px;font-weight:bold}.price{color:#ff7610;font-size:17px;font-weight:bold;margin-top:9px}
+button{width:100%;margin-top:20px;padding:18px;border:0;border-radius:15px;background:linear-gradient(90deg,#7228dd,#9b2ff0);color:#fff;font-size:18px;font-weight:bold}
+#msg{margin-top:14px;color:#9fe870;text-align:center;line-height:1.5}footer{padding:25px;text-align:center;color:#78859a}
+@media(max-width:430px){.packages{gap:9px}.package{padding:15px}}
+</style>
+</head>
+<body>
+<header><div class="back">‹ Voltar</div><h1>MBAPPEGH 💎</h1><div class="cart">🛒</div></header>
+
+<section class="hero">
+<h2>Recarga Free Fire 💎</h2>
+<p>Faça a sua recarga na <strong>MBAPPEGH</strong>.</p>
+<p>Receba os Diamantes diretamente na sua conta através do ID do jogador.</p>
+</section>
+
+<section class="card">
+<h3>1. Dados do Jogador</h3>
+<label>ID do Jogador *</label><input id="playerId" placeholder="Ex: 123456789">
+<label>Nome no jogo (Opcional)</label><input id="playerName" placeholder="Ex: L.MBAPPE10">
+</section>
+
+<section class="card">
+<h3>2. Escolha a Quantidade de Diamantes</h3>
+<div class="packages">
+<div class="package" data-diam="110" data-price="950 FCFA"><div class="diam">💎 110</div><div class="price">950 FCFA</div></div>
+<div class="package" data-diam="210" data-price="1.850 FCFA"><div class="diam">💎 210</div><div class="price">1.850 FCFA</div></div>
+<div class="package" data-diam="310" data-price="2.650 FCFA"><div class="diam">💎 310</div><div class="price">2.650 FCFA</div></div>
+<div class="package" data-diam="530" data-price="4.150 FCFA"><div class="diam">💎 530</div><div class="price">4.150 FCFA</div></div>
+<div class="package" data-diam="1.060" data-price="7.950 FCFA"><div class="diam">💎 1.060</div><div class="price">7.950 FCFA</div></div>
+<div class="package" data-diam="5.300" data-price="39.450 FCFA"><div class="diam">💎 5.300</div><div class="price">39.450 FCFA</div></div>
+</div>
+<button onclick="sendOrder()">🛒 FAZER PEDIDO</button>
+<div id="msg"></div>
+</section>
+<footer>© 2026 MBAPPEGH • Recargas Free Fire</footer>
+
+<script>
+let selected=null;
+document.querySelectorAll('.package').forEach(p=>p.onclick=()=>{
+ document.querySelectorAll('.package').forEach(x=>x.classList.remove('selected'));
+ p.classList.add('selected'); selected={diam:p.dataset.diam,price:p.dataset.price};
+});
+function sendOrder(){
+ const id=document.getElementById('playerId').value.trim();
+ const name=document.getElementById('playerName').value.trim();
+ const msg=document.getElementById('msg');
+ if(!id){msg.textContent='⚠️ Coloca o ID do jogador.';return}
+ if(!selected){msg.textContent='⚠️ Escolhe uma quantidade.';return}
+ const order='Olá MBAPPEGH! Quero fazer uma recarga Free Fire.%0A%0A🆔 ID: '+encodeURIComponent(id)+
+(name?'%0A👤 Nome: '+encodeURIComponent(name):'')+
+'%0A💎 Diamantes: '+encodeURIComponent(selected.diam)+
+'%0A💰 Preço: '+encodeURIComponent(selected.price);
+msg.innerHTML='✅ Pedido preparado!<br>Você será encaminhado para o WhatsApp.';
+setTimeout(()=>{ window.location.href='https://wa.me/245956731353?text='+order; },500);
+}
+</script>
+</body>
+</html>
